@@ -1,5 +1,6 @@
+const openModal = () => document.getElementById('modal').classList.add('active');
 
-
+const closeModal = () => document.getElementById('modal').classList.remove('active')
 
 
 const creatTemp = {
@@ -44,3 +45,10 @@ const deleteClient = (index) => {
     dbClient.splice(index, 1);
     setLocalStore(dbClient)
 }
+
+
+
+//evento
+
+document.getElementById('cadastrarCliente').addEventListener('click', openModal)
+document.getElementById('modalClose').addEventListener('click', closeModal)
