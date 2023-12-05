@@ -1,6 +1,10 @@
 const openModal = () => document.getElementById('modal').classList.add('active');
 
-const closeModal = () => document.getElementById('modal').classList.remove('active')
+const closeModal = () =>  {
+    clearCampos()
+    document.getElementById('modal').classList.remove('active')
+}
+
 
 
 const creatTemp = {
@@ -46,9 +50,30 @@ const deleteClient = (index) => {
     setLocalStore(dbClient)
 }
 
+const camposvalidos = () =>{
+    return document.getElementById('form').reportValidity()
+}
+
+const clearCampos = () => {
+    const fields = document.querySelectorAll('.modal-field')
+    fields.forEach(field => field.value = "")
+}
+
+const saveclient = () => {
+    if(camposvalidos()){
+        const client = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            telefone: document.getElementById('celular').value,
+            cidade: document.getElementById('cidade').value
+        }
+        creatClient(client)
+        closeModal()
+    }
+}
 
 
 //evento
-
 document.getElementById('cadastrarCliente').addEventListener('click', openModal)
 document.getElementById('modalClose').addEventListener('click', closeModal)
+document.getElementById('salvar').addEventListener('click', saveclient)
