@@ -6,9 +6,10 @@
 </p>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=K1nr4gGQa-c?autoplay=1">
-    <img src="https://img.youtube.com/vi/K1nr4gGQa-c/0.jpg" alt="Assista ao Vídeo de Demonstração" />
-  </a>
+  <video width="640" height="360" controls>
+    <source src="https://www.youtube.com/embed/K1nr4gGQa-c" type="video/mp4">
+    Seu navegador não suporta a tag de vídeo.
+  </video>
 </p>
 
 ## 🚀 Tecnologias
