@@ -6,10 +6,7 @@
 </p>
 
 <p align="center">
-  <video width="640" height="360" controls>
-    <source src="https://www.youtube.com/embed/K1nr4gGQa-c" type="video/mp4">
-    Seu navegador não suporta a tag de vídeo.
-  </video>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/K1nr4gGQa-c" frameborder="0" allowfullscreen></iframe>
 </p>
 
 ## 🚀 Tecnologias
