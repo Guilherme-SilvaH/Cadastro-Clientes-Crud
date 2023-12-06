@@ -6,7 +6,9 @@
 </p>
     
 <p align="center">
-[![Assista ao vídeo](https://img.youtube.com/vi/K1nr4gGQa-c/0.jpg)](https://www.youtube.com/watch?v=K1nr4gGQa-c?autoplay=1)
+  <a href="https://www.youtube.com/watch?v=K1nr4gGQa-c?autoplay=1">
+    <img src="https://img.youtube.com/vi/K1nr4gGQa-c/0.jpg" alt="Assista ao vídeo">
+  </a>
 </p>
 
 ## 🚀 Tecnologias
