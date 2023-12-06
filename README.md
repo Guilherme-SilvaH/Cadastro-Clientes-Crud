@@ -4,8 +4,10 @@
 <p align="center">
   <a href="#-tecnologias">Tecnologias
 </p>
-
+    
+<p align="center">
 [![Assista ao vídeo](https://img.youtube.com/vi/K1nr4gGQa-c/0.jpg)](https://www.youtube.com/watch?v=K1nr4gGQa-c?autoplay=1)
+</p>
 
 ## 🚀 Tecnologias
 
