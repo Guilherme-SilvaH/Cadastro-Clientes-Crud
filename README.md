@@ -9,6 +9,7 @@ Este é o repositório do projeto Guilherme Clothing, um site de vendas de roupa
 
 <p align="center">
 [![Assista ao Vídeo de Demonstração](https://img.youtube.com/vi/K1nr4gGQa-c/0.jpg)](https://www.youtube.com/watch?v=K1nr4gGQa-c?autoplay=1)
+
 </p>
 
 ## 🚀 Tecnologias
