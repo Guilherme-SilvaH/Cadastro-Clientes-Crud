@@ -5,9 +5,7 @@
   <a href="#-tecnologias">Tecnologias
 </p>
 
-<p align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/K1nr4gGQa-c" frameborder="0" allowfullscreen></iframe>
-</p>
+[![Assista ao vídeo](https://img.youtube.com/vi/K1nr4gGQa-c/0.jpg)](https://www.youtube.com/watch?v=K1nr4gGQa-c?autoplay=1)
 
 ## 🚀 Tecnologias
 
