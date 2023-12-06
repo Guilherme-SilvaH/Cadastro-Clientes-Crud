@@ -15,7 +15,6 @@ const getLocalStore = () => JSON.parse(localStorage.getItem("dbClient")) ?? [];
 const setLocalStore = (dbClient) => localStorage.setItem("dbClient", JSON.stringify(dbClient)); 
 
 //CRUD *Create *Read *Update *Delete
-
 //- ADCIONAR
 const creatClient = (client) => {
     const dbClient = getLocalStore();
@@ -40,6 +39,8 @@ const deleteClient = (index) => {
     dbClient.splice(index, 1);
     setLocalStore(dbClient)
 }
+
+
 
 const camposvalidos = () =>{
     return document.getElementById('form').reportValidity()
@@ -116,6 +117,7 @@ const editclient = (index) => {
     const client = readClient()[index];
     client.index = index
     fillFields(client)
+    document.querySelector(".modal-header>h2").textContent  = `Editando ${client.nome}`
     openModal()
 }
 
