@@ -1,120 +1,113 @@
 'use strict'
-
-const openModal = () => document.getElementById('modal').classList.add('active');
-
-const closeModal = () =>  {
-    clearCampos()
+//abrir o "modal"
+const openModal = () => document.getElementById('modal')
+    .classList.add('active')
+//fechar o "Modal"
+const closeModal = () => {
+    clearFields()
     document.getElementById('modal').classList.remove('active')
 }
 
+//pegar nossa "database"
+const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
 
-//get localstore - função
-const getLocalStore = () => JSON.parse(localStorage.getItem("dbClient")) ?? [];
+//criar a "database"
+const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
 
-//set LocalStore -função
-const setLocalStore = (dbClient) => localStorage.setItem("dbClient", JSON.stringify(dbClient)); 
-
-//CRUD *Create *Read *Update *Delete
-//- ADCIONAR
-const creatClient = (client) => {
-    const dbClient = getLocalStore();
-    dbClient.push(client);
-    setLocalStore(dbClient)
-}
-
-//Read
-const readClient = () => getLocalStore();
-
-
-//Update
-const updateClient = (index, client) =>{
-    const dbClient = readClient();
-    dbClient[index] = client
-    setLocalStore(dbClient)
-}
+// CRUD - create read update delete
 
 //delete
 const deleteClient = (index) => {
     const dbClient = readClient()
-    dbClient.splice(index, 1);
-    setLocalStore(dbClient)
+    dbClient.splice(index, 1)
+    setLocalStorage(dbClient)
+}
+//update
+const updateClient = (index, client) => {
+    const dbClient = readClient()
+    dbClient[index] = client
+    setLocalStorage(dbClient)
+}
+//read
+const readClient = () => getLocalStorage()
+
+//crear
+const createClient = (client) => {
+    const dbClient = getLocalStorage()
+    dbClient.push (client)
+    setLocalStorage(dbClient)
 }
 
-
-
-const camposvalidos = () =>{
+const isValidFields = () => {
     return document.getElementById('form').reportValidity()
 }
 
-const clearCampos = () => {
+//Interação com o layout
+
+const clearFields = () => {
     const fields = document.querySelectorAll('.modal-field')
     fields.forEach(field => field.value = "")
     document.getElementById('nome').dataset.index = 'new'
     document.querySelector(".modal-header>h2").textContent  = 'Novo Cliente'
 }
 
-const saveclient = () => {
-    if(camposvalidos()){
+const saveClient = () => {
+    if (isValidFields()) {
         const client = {
             nome: document.getElementById('nome').value,
             email: document.getElementById('email').value,
             celular: document.getElementById('celular').value,
             cidade: document.getElementById('cidade').value
         }
-
         const index = document.getElementById('nome').dataset.index
         if (index == 'new') {
-            creatClient(client)
-            updatetable()
+            createClient(client)
+            updateTable()
             closeModal()
-        }else{
+        } else {
             updateClient(index, client)
-            updatetable(),
+            updateTable()
             closeModal()
         }
-    
     }
 }
 
 const createRow = (client, index) => {
-    const newRow = document.createElement('tr') //criar uma nova linha no HTML no tbody 
-    newRow.innerHTML = ` 
+    const newRow = document.createElement('tr')
+    newRow.innerHTML = `
         <td>${client.nome}</td>
-        <td>${client.email} </td>
+        <td>${client.email}</td>
         <td>${client.celular}</td>
         <td>${client.cidade}</td>
-
         <td>
-            <button type= "button" class= "button green" id='editar-${index}'>Editar</button>
-            <button type= "button" class= "button red" id='excluir-${index}'>Excluir</button>
+            <button type="button" class="button green" id="edit-${index}">Editar</button>
+            <button type="button" class="button red" id="delete-${index}" >Excluir</button>
         </td>
-    `//criando um html (TR) com os dados do localstore(client), aqui estamo deixando apenas na "memoria"
-
-    document.querySelector('#tableClient>tbody').appendChild(newRow)//aqui vamos mandar para o DOM(HTML)
+    `
+    document.querySelector('#tableClient>tbody').appendChild(newRow)
 }
 
 const clearTable = () => {
-    const rows = document.querySelectorAll('#tableClient>tbody tr')//pega cada linha do tbody (tr) e guarda em uma variavel
-    rows.forEach(row => row.parentNode.removeChild(row))//remove a linha 
+    const rows = document.querySelectorAll('#tableClient>tbody tr')
+    rows.forEach(row => row.parentNode.removeChild(row))
 }
 
-const updatetable = () => {
+const updateTable = () => {
     const dbClient = readClient()
     clearTable()
     dbClient.forEach(createRow)
 }
 
-
 const fillFields = (client) => {
-    document.getElementById('nome').value = client.nome;
-    document.getElementById('email').value = client.email;
-    document.getElementById('celular').value = client.celular;
+    document.getElementById('nome').value = client.nome
+    document.getElementById('email').value = client.email
+    document.getElementById('celular').value = client.celular
     document.getElementById('cidade').value = client.cidade
     document.getElementById('nome').dataset.index = client.index
 }
 
-const editclient = (index) => {
-    const client = readClient()[index];
+const editClient = (index) => {
+    const client = readClient()[index]
     client.index = index
     fillFields(client)
     document.querySelector(".modal-header>h2").textContent  = `Editando ${client.nome}`
@@ -122,27 +115,37 @@ const editclient = (index) => {
 }
 
 const editDelete = (event) => {
-    if (event.target.type == 'button'){
-        const [action , index] = event.target.id.split('-')
-        if (action == 'editar') {
-            editclient(index)
-        }else{
+    if (event.target.type == 'button') {
+
+        const [action, index] = event.target.id.split('-')
+
+        if (action == 'edit') {
+            editClient(index)
+        } else {
             const client = readClient()[index]
             const response = confirm(`Deseja realmente excluir o cliente ${client.nome}`)
             if (response) {
                 deleteClient(index)
-                updatetable()
+                updateTable()
             }
         }
     }
 }
 
+updateTable()
 
-updatetable()
+// Eventos
+document.getElementById('cadastrarCliente')
+    .addEventListener('click', openModal)
 
-//evento
-document.getElementById('cadastrarCliente').addEventListener('click', openModal)
-document.getElementById('modalClose').addEventListener('click', closeModal)
-document.getElementById('salvar').addEventListener('click', saveclient)
-document.querySelector('#tableClient>tbody').addEventListener('click', editDelete)
-document.getElementById('cancelar').addEventListener('click', closeModal)
+document.getElementById('modalClose')
+    .addEventListener('click', closeModal)
+
+document.getElementById('salvar')
+    .addEventListener('click', saveClient)
+
+document.querySelector('#tableClient>tbody')
+    .addEventListener('click', editDelete)
+
+document.getElementById('cancelar')
+    .addEventListener('click', closeModal)
